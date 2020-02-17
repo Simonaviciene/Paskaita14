@@ -2,6 +2,8 @@
 using IAC.BL;
 using IAC.BL.Repositories;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
+using IAC;
 
 namespace Lesson11_01.IAC.test
 {
@@ -12,17 +14,20 @@ namespace Lesson11_01.IAC.test
         public void GenerateReportAircraftInEuropeShouldReturnListWithReportItems()
         {
             // Assign
+            AircraftRepository aircraftRepository = new AircraftRepository();
             ReportGenerator reportGenerator = new ReportGenerator(
-                new AircraftRepository(),
+                aircraftRepository,
                 new AircraftModelRepository(),
                 new CompanyRepository(),
                 new CountryRepository());
 
             // Act
-            var report = reportGenerator.GenerateReportAircraftInEurope();
+            List<ReportItem> report = reportGenerator.GenerateReportAircraftInEurope();
 
             // Assert
             Assert.IsNotNull(report);
+            Assert.IsTrue(report.Count > 0);
         }
+        
     }
 }
